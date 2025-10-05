@@ -23,7 +23,49 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+MediStock API - Multi-tenant SaaS system for inventory and point of sale designed for pharmacies and retail businesses. Built with [Nest.js](https://github.com/nestjs/nest) framework and TypeScript.
+
+## Environment Configuration
+
+This project uses environment-specific configuration files for different deployment stages.
+
+### Available Environment Files
+
+- `.env.example` - Example with all variables documented (committed)
+- `.env.local` - Your local development environment file (ignored by git)
+
+### Setup for Local Development
+
+```bash
+# Create local environment file from example
+$ cp .env.example .env.local
+
+# Edit .env.local with your local values:
+# - Set database credentials (medistock:medistock123@localhost:5432/medistock)
+# - Set JWT secret (use any development secret)
+# - Verify other settings match your local setup
+```
+
+### Docker Setup
+
+```bash
+# Start PostgreSQL and Redis services
+$ docker-compose up -d
+
+# Install dependencies
+$ npm install
+
+# Run database migrations
+$ npm run migration:run
+```
+
+### Security Notes
+
+- `.env.local` and other environment files with actual values are in `.gitignore` 
+- Only `.env.example` template is committed (no secrets)
+- Never commit files with real passwords or API keys
+- Use strong, unique secrets for each environment
+- Each developer maintains their own local `.env.local` file
 
 ## Project setup
 
