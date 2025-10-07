@@ -1,140 +1,321 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# MediStock API 🏥
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+**Multi-tenant SaaS Backend for Pharmacy Management**
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+A modern, scalable NestJS API for small-to-medium pharmacy operations, featuring inventory management, POS system, multi-branch operations, and comprehensive business analytics.
 
-## Description
+## 🚀 Quick Start
 
-MediStock API - Multi-tenant SaaS system for inventory and point of sale designed for pharmacies and retail businesses. Built with [Nest.js](https://github.com/nestjs/nest) framework and TypeScript.
+### Prerequisites
 
-## Environment Configuration
+- **Node.js**: 20+ (LTS recommended)
+- **PostgreSQL**: 16+
+- **npm**: Latest version
 
-This project uses environment-specific configuration files for different deployment stages.
-
-### Available Environment Files
-
-- `.env.example` - Example with all variables documented (committed)
-- `.env.local` - Your local development environment file (ignored by git)
-
-### Setup for Local Development
+### Installation
 
 ```bash
-# Create local environment file from example
-$ cp .env.example .env.local
-
-# Edit .env.local with your local values:
-# - Set database credentials (medistock:medistock123@localhost:5432/medistock)
-# - Set JWT secret (use any development secret)
-# - Verify other settings match your local setup
-```
-
-### Docker Setup
-
-```bash
-# Start PostgreSQL and Redis services
-$ docker-compose up -d
-
 # Install dependencies
-$ npm install
+npm install
 
-# Run database migrations
-$ npm run migration:run
+# Copy environment configuration
+cp .env.example .env.local
+
+# Initialize Git hooks
+npm run prepare
+
+# Start development server
+npm run start:dev
 ```
 
-### Security Notes
+**API will be available at:** `http://localhost:3001/api/v1`
 
-- `.env.local` and other environment files with actual values are in `.gitignore` 
-- Only `.env.example` template is committed (no secrets)
-- Never commit files with real passwords or API keys
-- Use strong, unique secrets for each environment
-- Each developer maintains their own local `.env.local` file
+## 🏗️ Tech Stack
 
-## Project setup
+| Technology          | Purpose           | Version |
+| ------------------- | ----------------- | ------- |
+| **NestJS**          | Backend Framework | 11.x    |
+| **TypeScript**      | Language          | 5.x     |
+| **PostgreSQL**      | Database          | 16+     |
+| **TypeORM**         | ORM               | 0.3.x   |
+| **Passport JWT**    | Authentication    | Latest  |
+| **class-validator** | Validation        | Latest  |
+
+## 📁 Project Structure
+
+```
+src/
+├── common/                 # Shared utilities
+│   ├── constants/         # API versions, enums
+│   ├── decorators/        # Custom decorators
+│   ├── guards/           # Auth, tenant, roles guards
+│   └── interceptors/     # Global interceptors
+├── config/               # Configuration modules
+│   ├── app.config.ts     # App settings
+│   ├── database.config.ts # DB configuration
+│   ├── jwt.config.ts     # JWT settings
+│   └── typeorm.config.ts # TypeORM CLI config
+├── database/
+│   ├── entities/         # TypeORM entities
+│   ├── migrations/       # Database migrations
+│   └── seeds/           # Seed data
+└── modules/             # Business modules
+    ├── auth/
+    ├── users/
+    ├── products/
+    └── ...
+```
+
+## 🛠️ Development
+
+### Available Scripts
+
+| Command              | Description                            |
+| -------------------- | -------------------------------------- |
+| `npm run start:dev`  | Start development server (watch mode)  |
+| `npm run build`      | Build production bundle                |
+| `npm run lint`       | Run ESLint + fix issues + sort imports |
+| `npm run format`     | Format code with Prettier              |
+| `npm run format:all` | Format all files + lint                |
+| `npm run test`       | Run unit tests                         |
+| `npm run test:e2e`   | Run E2E tests                          |
+| `npm run commit`     | Interactive conventional commits       |
+
+### Code Quality Tools
+
+**✅ Automated on Save:**
+
+- **ESLint** - Code linting + auto-fix
+- **Prettier** - Code formatting
+- **Import sorting** - Organized imports
+- **TypeScript** - Type checking
+
+**✅ Git Hooks (Husky):**
+
+- **Pre-commit**: Lint + format staged files
+- **Commit-msg**: Validate conventional commit format
+
+### Commit Standards
+
+We use **Conventional Commits** for consistent commit messages:
 
 ```bash
-$ npm install
+# Use interactive prompts (recommended)
+npm run commit
+
+# Or manual format
+git commit -m "feat(products): add inventory tracking"
+git commit -m "fix(auth): resolve JWT token expiry"
+git commit -m "docs: update API documentation"
 ```
 
-## Compile and run the project
+**Types**: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
+
+## 🗄️ Database
+
+### Configuration
+
+The API supports both connection string and individual parameters:
 
 ```bash
-# development
-$ npm run start
+# Option 1: Connection String (Production)
+DATABASE_URL="postgresql://user:pass@host:5432/medistock"
 
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+# Option 2: Individual Parameters (Development)
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
+POSTGRES_USER=medistock
+POSTGRES_PASSWORD=medistock123
+POSTGRES_DB=medistock
 ```
 
-## Run tests
+### Migrations
 
 ```bash
-# unit tests
-$ npm run test
+# Generate migration after entity changes
+npm run migration:generate -- src/database/migrations/DescriptiveName
 
-# e2e tests
-$ npm run test:e2e
+# Run pending migrations
+npm run migration:run
 
-# test coverage
-$ npm run test:cov
+# Revert last migration
+npm run migration:revert
 ```
 
-## Deployment
+### Architecture Features
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+**🏢 Multi-tenancy:**
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+- Shared database with `organizationId` filtering
+- Header-based tenant resolution (`x-tenant-slug`)
+- Row-level security with proper indexing
+
+**🔒 Security:**
+
+- JWT authentication with refresh tokens
+- Role-based access control (RBAC)
+- Soft delete on all entities
+- Input validation with class-validator
+
+**⚡ Performance:**
+
+- Optimistic locking for inventory operations
+- Pessimistic locking for critical operations
+- Connection pooling and query optimization
+- Proper database indexing
+
+## 🌐 API Overview
+
+### Base URL Structure
+
+```
+Production:  https://api.medistock.app/api/v1
+Development: http://localhost:3001/api/v1
+```
+
+### Authentication
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+# All API requests require:
+Authorization: Bearer <jwt_token>
+x-tenant-slug: <organization-slug>
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### Health Check
 
-## Resources
+```bash
+GET /api/v1/health
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+### API Versioning
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+The API uses URI-based versioning (`/api/v1`, `/api/v2`) for backward compatibility.
 
-## Support
+## 📊 Key Features
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### 🏪 Multi-tenant Architecture
 
-## Stay in touch
+- **Organization isolation** - Complete data separation per tenant
+- **Branch management** - Multiple pharmacy locations per organization
+- **User roles** - Owner, Admin, Member permissions per organization
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### 📦 Inventory Management
 
-## License
+- **Real-time tracking** - Stock levels across multiple branches
+- **Batch management** - Expiration dates and lot numbers
+- **Low stock alerts** - Automated notifications
+- **Transfer management** - Inter-branch stock transfers
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+### 💳 Point of Sale (POS)
+
+- **Quick sales processing** - Barcode scanning support
+- **Payment methods** - Cash, card, mixed payments
+- **Receipt generation** - Thermal printer support
+- **Daily cash register** - Opening/closing procedures
+
+### 📈 Business Intelligence
+
+- **Sales analytics** - Daily, weekly, monthly reports
+- **Inventory reports** - Stock valuation, turnover analysis
+- **Expense tracking** - Operating costs management
+- **Profit/loss statements** - Financial performance
+
+## 🧪 Testing
+
+```bash
+# Run all tests
+npm test
+
+# Run with coverage
+npm run test:cov
+
+# Run E2E tests
+npm run test:e2e
+
+# Watch mode for development
+npm run test:watch
+```
+
+## 📝 Environment Variables
+
+Copy `.env.example` to `.env.local` and configure:
+
+```bash
+# Application
+NODE_ENV=development
+PORT=3001
+APP_NAME=MediStock
+
+# Database
+DATABASE_URL=postgresql://medistock:medistock123@localhost:5432/medistock
+
+# JWT
+JWT_SECRET=your-super-secret-key-change-this-in-production
+JWT_EXPIRES_IN=7d
+
+# CORS
+ALLOWED_ORIGINS=http://localhost:3000
+```
+
+## 🚢 Deployment
+
+### Production Build
+
+```bash
+npm run build
+npm run start:prod
+```
+
+### Docker Support
+
+```bash
+# Build and run with Docker Compose
+docker-compose up -d
+```
+
+## 🤝 Contributing
+
+1. **Fork** the repository
+2. **Create** a feature branch (`git checkout -b feat/amazing-feature`)
+3. **Commit** using conventional commits (`npm run commit`)
+4. **Push** to the branch (`git push origin feat/amazing-feature`)
+5. **Open** a Pull Request
+
+## 🆘 Troubleshooting
+
+### Common Issues
+
+**Database Connection:**
+
+```bash
+# Check PostgreSQL is running
+pg_ctl status
+
+# Verify connection string
+npm run typeorm -- query "SELECT version()"
+```
+
+**Build Errors:**
+
+```bash
+# Clear build cache
+rm -rf dist node_modules
+npm install
+npm run build
+```
+
+**Import Errors:**
+
+```bash
+# Run import sorting and formatting
+npm run format:all
+```
+
+## 📞 Support
+
+- **Issues**: Use GitHub Issues for bug reports
+- **Development**: Use `npm run commit` for proper commit formatting
+
+---
+
+**Built with ❤️ using NestJS** | **Multi-tenant SaaS for Modern Pharmacies**
