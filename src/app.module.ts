@@ -2,9 +2,9 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from 'src/app.controller';
 import { AppService } from 'src/app.service';
+import appConfig from 'src/config/app.config';
 import databaseConfig from 'src/config/database.config';
 import jwtConfig from 'src/config/jwt.config';
-import appConfig from 'src/config/app.config';
 
 @Module({
   imports: [

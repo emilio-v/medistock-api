@@ -1,6 +1,6 @@
-import { NestFactory } from '@nestjs/core';
-import { ConfigService } from '@nestjs/config';
 import { ValidationPipe, VersioningType } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { NestFactory } from '@nestjs/core';
 import { AppModule } from 'src/app.module';
 import { ApiVersion } from 'src/common/constants/api-versions';
 
