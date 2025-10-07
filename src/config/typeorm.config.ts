@@ -11,7 +11,7 @@ export const dataSourceOptions: DataSourceOptions = {
   username: process.env.POSTGRES_USER || 'medistock',
   password: process.env.POSTGRES_PASSWORD || 'medistock123',
   database: process.env.POSTGRES_DB || 'medistock',
-  entities: ['dist/database/entities/*.entity.js'],
+  entities: ['dist/**/*.entity.js'],
   migrations: ['dist/database/migrations/*.js'],
   synchronize: false, // ALWAYS false in production
   logging: process.env.NODE_ENV === 'development',
