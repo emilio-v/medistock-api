@@ -1,6 +1,6 @@
 import { Controller, Get, Version } from '@nestjs/common';
-import { AppService } from './app.service';
-import { ApiVersion } from './common/constants/api-versions';
+import { AppService } from 'src/app.service';
+import { ApiVersion } from 'src/common/constants/api-versions';
 
 @Controller()
 export class AppController {
