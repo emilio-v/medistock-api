@@ -3,5 +3,9 @@ import { registerAs } from '@nestjs/config';
 export default registerAs('jwt', () => ({
   secret:
     process.env.JWT_SECRET || 'your-super-secret-key-change-this-in-production',
-  expiresIn: process.env.JWT_EXPIRES_IN || '7d',
+  expiresIn: process.env.JWT_EXPIRES_IN || '1h',
+  refreshSecret:
+    process.env.JWT_REFRESH_SECRET ||
+    'your-refresh-secret-change-this-in-production',
+  refreshExpiresIn: process.env.JWT_REFRESH_EXPIRES_IN || '7d',
 }));
